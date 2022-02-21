@@ -19,9 +19,12 @@ const validateRegiterInput = require('../../validation/register')
 router.get('/test', async ctx => {
   ctx.state = 200;
   ctx.request.body.msg = 'success'
+  ctx.request.body.dataCode = '200'
+  ctx.request.body.string = 'success'
   ctx.body = ctx.request.body;
   // console.log(ctx.params);
   // console.log(ctx.request);
+  
   // console.log(ctx.request.URL);
 })
 
