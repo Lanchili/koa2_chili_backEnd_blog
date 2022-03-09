@@ -24,7 +24,7 @@ router.get('/test', async ctx => {
   ctx.body = ctx.request.body;
   // console.log(ctx.params);
   // console.log(ctx.request);
-  
+
   // console.log(ctx.request.URL);
 })
 
@@ -120,18 +120,20 @@ router.post('/register', async ctx => {
 router.post('/login', async ctx => {
   ctx.state = 200;
   const findResult = await User.find({
-    id: ctx.request.body.id
+    email: ctx.request.body.email
   });
-
+  console.log(ctx);
   // console.log(ctx.request);
   if (findResult.length == 0) {
-    //没找到注册id
+    //没找到注册email
     ctx.state = 404;
     ctx.body = {
       msg: 'this email do not login'
     }
   } else {
     const userPassword = findResult[0].password;
+    // console.log(findResult[0])
+    const id = findResult[0].id
     const result = tools.bcryptCompare(ctx.request.body.password, userPassword)
     console.log(result);
     if (result) {
@@ -145,8 +147,11 @@ router.post('/login', async ctx => {
 
 
       ctx.body = {
-        msg: '登录成功',
-        token: `Bearer ${token}`
+        data: {
+          msg: '登录成功',
+          token: `Bearer ${token}`,
+          id: id
+        }
       }
     } else {
       ctx.status = 500;

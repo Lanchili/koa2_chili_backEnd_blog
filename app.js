@@ -24,18 +24,18 @@ app.use(passport.session())
 require('./config/passport')(passport)
 //引入uses.js
 const users = require('./routes/api/users');
-
+const articles = require('./routes/api/article')
 
 //设置跨域
 app.use(cors(CORS_CONFIG))
 
 
 //路由
-router.get("/app", async ctx => {
-  ctx.body = {
-    msg: 'hallo koa'
-  }
-})
+// router.get("/app", async ctx => {
+//   ctx.body = {
+//     msg: 'hallo koa'
+//   }
+// })
 //连接数据库
 // db/db.js
 // const mongoose = require('mongoose')
@@ -66,7 +66,7 @@ mongoose.connection.on('disconnected', function () {
 //配置路由地址  api/users/test
 
 router.use('/api/users', users)
-
+router.use('/api/acticle', articles)
 
 
 //配置路由
